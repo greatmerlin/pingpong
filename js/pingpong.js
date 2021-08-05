@@ -95,10 +95,10 @@ function playerAWin() {
     pingpong.ball.directionX = -1;
     }
 function playerBWin() {
-// reset the ball;
-pingpong.ball.x = 150;
-pingpong.ball.y = 100;
-pingpong.ball.directionX = 1;
+    // reset the ball;
+    pingpong.ball.x = 150;
+    pingpong.ball.y = 100;
+    pingpong.ball.directionX = 1;
 }
     
 /*
@@ -122,12 +122,34 @@ function moveBall() {
     // check left
     if (ballHitsLeftWall()) {
         playerBWin();
-}
-// check paddles here
-// update the ball position data
-ball.x += ball.speed * ball.directionX;
-ball.y += ball.speed * ball.directionY;
+    }
 
+    // Variables for checking paddles
+    var ballX = ball.x + ball.speed * ball.directionX;
+    var ballY = ball.y + ball.speed * ball.directionY;
+
+    // check paddles here
+    // check left paddle
+    if (ballX >= pingpong.paddleA.x && ballX < pingpong.paddleA.x +
+        pingpong.paddleA.width) {
+            if (ballY <= pingpong.paddleA.y + pingpong.paddleA.height &&
+            ballY >= pingpong.paddleA.y) {
+                ball.directionX = 1;
+            }
+        }
+
+    // check right paddle
+    if (ballX >= pingpong.paddleB.x && ballX < pingpong.paddleB.x +
+        pingpong.paddleB.width) {
+            if (ballY <= pingpong.paddleB.y + pingpong.paddleB.height &&
+            ballY >= pingpong.paddleB.y) {
+                ball.directionX = -1;
+            }
+        }
+
+    // update the ball position data
+    ball.x += ball.speed * ball.directionX;
+    ball.y += ball.speed * ball.directionY;
 }
 
 /**
