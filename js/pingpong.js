@@ -2,6 +2,9 @@
     // data definition
     // playground -> This stores variables that are related to playground
     var pingpong = {
+    scoreA : 0, // score for player A
+    scoreB : 0, // score for player B
+
     paddleA: {
     x: 50,
     y: 100,
@@ -26,7 +29,6 @@
         directionX: 1,
         directionY: 1
         }
-        
     };
     // view rendering
     function renderPaddles() {
@@ -70,6 +72,7 @@ function init() {
 // We define a gameloop function and move the ball on each game loop iteration
 function gameloop() {
     moveBall();
+    autoMovePaddleA();
     }
 // We define the functions to check whether the ball is hitting the four boundary walls of the playground
 function ballHitsTopBottom() {
@@ -88,13 +91,19 @@ function ballHitsTopBottom() {
 
 // Then, we define two functions that reset the game after either player wins.
 function playerAWin() {
+    // increment the score
+    pingpong.scoreA += 1;
+    $("#score-a").text(pingpong.scoreA);
     // reset the ball;
     pingpong.ball.x = 250;
     pingpong.ball.y = 100;
     // update the ball location variables;
     pingpong.ball.directionX = -1;
-    }
+}
 function playerBWin() {
+    //increment the score
+    pingpong.scoreB += 1;
+    $("#score-b").text(pingpong.scoreB);
     // reset the ball;
     pingpong.ball.x = 150;
     pingpong.ball.y = 100;
@@ -129,6 +138,7 @@ function moveBall() {
     var ballY = ball.y + ball.speed * ball.directionY;
 
     // check paddles here
+    
     // check left paddle
     if (ballX >= pingpong.paddleA.x && ballX < pingpong.paddleA.x +
         pingpong.paddleA.width) {
@@ -166,6 +176,18 @@ function renderBall() {
     "top" : ball.y + ball.speed * ball.directionY
     });
 }
+
+// function that follows the ball's y position.
+function autoMovePaddleA() {
+    var speed = 4;
+    var direction = 1;
+    var paddleY = pingpong.paddleA.y + pingpong.paddleA.height/2;
+    if (paddleY > pingpong.ball.y) {
+        direction = -1;
+    }
+    pingpong.paddleA.y += speed * direction;
+}
+    
     
 
 renderPaddles();
