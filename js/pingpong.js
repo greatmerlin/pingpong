@@ -23,7 +23,7 @@
         width: parseInt($("#playground").width()),
     },
     ball: {
-        speed: 5,
+        speed: 10,
         x: 150,
         y: 100,
         directionX: 1,
@@ -71,8 +71,8 @@ function init() {
 
 // We define a gameloop function and move the ball on each game loop iteration
 function gameloop() {
-    moveBall();
     autoMovePaddleA();
+    moveBall();
     }
 // We define the functions to check whether the ball is hitting the four boundary walls of the playground
 function ballHitsTopBottom() {
